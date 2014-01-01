@@ -1,0 +1,178 @@
+============================================================================
+
+                                  UNIPAL
+                                   v1.1
+
+                a general purpose optimal palette generator
+============================================================================
+
+by Cristovao Barbosa Braga Dalla Costa (overlord@directnet.com.br)
+
+Keep in touch through the web page: http://www.directnet.com.br/~overlord/
+
+
+                           ====================
+                                WHAT IT IS
+                           ====================
+
+
+Unipal is designed to help people create images to use in games which run
+under 8 bit indexed colour. In such games, all bitmaps must use a single
+colour palette, so someone creating images would have a very hard time keeping
+all images consistent. Using unipal, though, you can save your images with
+any colour palette you want and unipal will automatically change all bmps
+to use a single, optimal palette.
+
+This way you gain freedom to design using packages like 3D Studio to save
+hundreds of images to disk and convert them all at once with a minimun of
+hassle.
+
+                           ====================
+									    HOW IT WORKS
+									====================
+
+
+First, unipal loads into memory all the images to be converted. This means
+that if the total uncompressed size of your images is greater than, say, 80%
+of the total amount of RAM in your computer, unipal is likely to use disk
+swapping. To keep this to a minimum, don't run it under windoze. If you do
+run it under plain DOS, though, don't remove the disk cache since it will
+actually increase performace, unless you can stop swapping by doing so.
+
+Then, unipal will create a colour table consisting of all the unique colours
+used in all the images, which will be used to generate the final palette. Done
+that, all bitmaps will be converted in order to use the new palette and saved
+to disk.
+
+Bitmaps are saved under the same name but with a leading '_'. *NOTE* All
+bitmaps which name begin with '_' are ignored during conversion. Since YOU
+CAN USE WILDCARDS to process multiple images, any images that had been
+processed before and match the wildcard will not be taken into account.
+
+Unipal can read 8bit BMP, TGA, PCX and LBM files, but can't write LBM. All
+input files will be saved under the original format but LBM files will be
+converted to PCX.
+
+Disregarding command-line switches like '-0b', all the colours of the
+generated palette will be sorted by usage, the least used being given the
+highest indexes.
+
+
+                          =====================
+								          USAGE
+								  =====================
+
+Using unipal is bery straightforward. To process all image files in a
+directory, use:
+
+   unipal *
+
+Unipal will then create a file which name begins with '_' for each other
+graphic file in the directory. Files which name already begins with '_' will
+be ignored, and all of the new files wil contain the new, optimal palette.
+
+If you are creating graphics in 3D Studio or other program that does not
+necessarily put the background colour as index zero (transparent background
+in most graphic libraries), rest assured that unipal will do that for you.
+Actually, all the palette's colours are sorted by usage, the least often used
+ones will have the highest indexes.
+
+Another problem which arises with 3D Studio - if you use black anywhere in
+your model, you can't have it as background or those parts will become
+transparent later. So, you use a weird colour that does not appear otherwise
+as background  Then, by specifying the '-bck0' and -llimit 1' command-line
+switches the index-zero colour of the palette will become black after
+conversion. So, the background (turned to black) will be transparent and the
+other blacks will not because they will use some other black with an index
+other than zero.
+
+Another useful feature are the limits - you can tell unipal to use only
+colour indexes in a certain range. Say,
+
+   unipal * -llimit x -rlimit y
+
+tells it to use only colour between indexes x and y. You can specify only
+one, if you wish. This is specially useful when you have various sets of
+pictures and you want each to use its own part of the final palette.
+
+Yet another command-line switch, '-mu0', will combine the above two
+behaviuours. It is intended to use with a lower limit other than
+zero. It will make the most used colour (background) have index zero
+regardless of the lower limit you specified. If you also specify '-0b', it
+will be turned into black afterwards.
+
+If you want to make sure the colour you specified as index zero on all images
+to stay using index zero, you can use the '-0p' switch. When you specify this,
+no colour of index zero will be touched. They are taken into account when
+creating the optimal palette, of course. You may also want to specify '-0b'.
+
+
+                          =====================
+							  COMMAND LINE OPTIONS SUMMARY
+								  =====================
+
+All the command-line switches are detailed above, as well as their intended
+use.
+
+   -0p
+	~~~
+	   By specifying this switch you will make sure that no colour with index
+		zero in your images will change index later. This may cause undesirable
+		results if they are not the most used colour or different colours
+		across images.
+
+	-0b
+	~~~
+	   This switch tells unipal to change the colour of index zero to black
+		after conversion, so any colour used as background (likely to be the
+		most used one) will become black.
+
+	-mu0
+	~~~~
+	   This switch tells unipal to place the most used colour as index zero,
+		regardless of the left limit. Other colours will stay within bounds.
+		See below.
+
+	-llimit <number 0...254>
+	~~~~~~~~~~~~~~~~~~~~~~~~
+	   Using this switch you can tell unipal to use only colours after this
+		index. See also: '-mu0', '-rlimit'.
+
+	-rlimit <number 1...255>
+	~~~~~~~~~~~~~~~~~~~~~~~~
+	   Using this switch you can tell unipal to use only colours before this
+		index. See also: '-mu0', '-llimit'.
+
+	-bck0
+	~~~~~
+		When this switch is specified, unipal will check whether the outermost
+		pixels of each bitmap (a solid background) are of the same colour. Then,
+		all colours of that bitmap matching the background will be mapped to
+		index zero. If you also specify '-0b' and	'-llimit 1' colour 0 will
+		also become black. This switch alone can actually speed up the colour
+		mapping process by 50%-80%.
+
+	-lwhite
+	~~~~~~~
+		After creating the palette, change colour 255 to white. This is here
+		because things like mouse pointers may expect colour 255 to be white.
+
+                          =====================
+								       THIS IS IT
+								  =====================
+
+
+Well, thanks for using unipal. If you want, please send comments, complaints
+and suggestions to my email below. I know unipal is very slow, and I'm
+working on it, even though I think it is OK for something you run only
+every now and then.
+
+Thanks!
+
+Cristovao Barbosa Braga Dalla Costa
+overlord@nt.directnet.com.br
+http://www.directnet.com.br/~overlord/
+
+
+
+
