@@ -2,7 +2,7 @@
 ==
 This is a 3D graphics demo I wrote in high school (circa 1997). 
 
-<p>[<img src="http://crazybob.org/demo-small.gif" width="320" height="200">](http://crazybob.org/demo.gif)</p>
+<p><a href="http://crazybob.org/demo.gif"><img src="http://crazybob.org/demo-small.gif" width="320" height="200"></a></p>
 
 Source code
 -----------
